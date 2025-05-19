@@ -40,13 +40,12 @@ public class CharacterManager
         set { _player = value; }
     }
 
-    public void OnUpdate()
-    {
-        if (Input.anyKey && KeyAction != null)
-            KeyAction.Invoke();
-    }
 
     public Action KeyAction = null;
 
-
+    public void OnUpdate()
+    {
+        if (Input.anyKey && KeyAction != null)
+        KeyAction.Invoke();
+    }
 }
