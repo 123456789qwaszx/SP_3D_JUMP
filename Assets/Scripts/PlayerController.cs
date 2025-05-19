@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,15 +10,31 @@ public class PlayerController : MonoBehaviour
     public float _moveSpeed;
     public float jumpPower;
 
-    private Vector2 InputsystemInput;
-
-    public void OnMove(InputAction.CallbackContext context)
+    void Start()
     {
-        // 이미 인풋시스템에서 w시 transformposition을 Vector2.(x, y) 값이 1씩 들어가게 세팅해둠.
-        if (context.phase == InputActionPhase.Performed)
+        // 이벤트가 두번 호출되는 것 방지
+        Managers.Char.KeyAction -= OnKeyboard;
+        Managers.Char.KeyAction += OnKeyboard;
+    }
+
+    
+    public void OnKeyboard()
+    {
+        if (Input.GetKey(KeyCode.W))
         {
-
-
+            transform.position += Vector3.forward * Time.deltaTime * _moveSpeed;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position += Vector3.back * Time.deltaTime * _moveSpeed;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position += Vector3.left * Time.deltaTime * _moveSpeed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += Vector3.right * Time.deltaTime * _moveSpeed;
         }
     }
 

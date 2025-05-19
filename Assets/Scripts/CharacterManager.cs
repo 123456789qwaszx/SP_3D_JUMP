@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,5 +39,14 @@ public class CharacterManager
         get { return _player; }
         set { _player = value; }
     }
+
+    public void OnUpdate()
+    {
+        if (Input.anyKey && KeyAction != null)
+            KeyAction.Invoke();
+    }
+
+    public Action KeyAction = null;
+
 
 }

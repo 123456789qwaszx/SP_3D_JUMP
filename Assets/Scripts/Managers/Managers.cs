@@ -25,6 +25,7 @@ public class Managers : MonoBehaviour
 
     void Update()
     {
+        Char.OnUpdate();
 
     }
 
