@@ -9,15 +9,18 @@ public class PlayerController : MonoBehaviour
 
     public float _moveSpeed;
     public float jumpPower;
+    public Rigidbody _rigidbody;
 
     void Start()
     {
         // 이벤트가 두번 호출되는 것 방지
         Managers.Char.KeyAction -= OnKeyboard;
         Managers.Char.KeyAction += OnKeyboard;
+        _rigidbody = GetComponent<Rigidbody>();
+
     }
 
-    
+
     public void OnKeyboard()
     {
         if (Input.GetKey(KeyCode.W))
@@ -39,6 +42,14 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
             transform.position += Vector3.right * Time.deltaTime * _moveSpeed;
+        }
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }
 
