@@ -6,13 +6,14 @@ public class Managers : MonoBehaviour
 {
     static Managers s_instance;
 
-
     static Managers Instance { get { Init(); return s_instance; } }
-    
+
+    CharacterManager _char = new CharacterManager();
     MapManager _map = new MapManager();
     PoolManager _pool = new PoolManager();
     ResourceManager _resource = new ResourceManager();
 
+    public static CharacterManager Char { get { return Instance._char; } }
     public static MapManager Map { get { return Instance._map; } }
     public static PoolManager Pool { get { return Instance._pool; } } 
     public static ResourceManager Resource { get { return Instance._resource; } }
