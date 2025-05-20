@@ -7,13 +7,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
     public float _moveSpeed;
     public float jumpPower;
     public Rigidbody _rigidbody;
     private Animator animator;
 
     private float cur_wait_run_ratio;
+
+    // Called automatically by Unity when the script first exists in the scene.
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+
+    }
+
+    // Called automatically by Unity after Awake whenever the script is enabled. 
+    void OnEnable()
+    {
+        SceneLinkedSMB<PlayerController>.Initialise(animator, this);
+
+    }
 
     void Start()
     {
@@ -25,7 +38,6 @@ public class PlayerController : MonoBehaviour
         Managers.Char.KeyAction += KeyboardAnim;
 
         _rigidbody = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
     }
 
 
