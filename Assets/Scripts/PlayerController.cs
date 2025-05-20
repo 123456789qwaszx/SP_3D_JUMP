@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,12 +13,14 @@ public class PlayerController : MonoBehaviour
     public Rigidbody _rigidbody;
     private Animator animator;
 
+    private float cur_wait_run_ratio;
+
     void Start()
     {
         // 이벤트가 두번 호출되는 것 방지
         Managers.Char.KeyAction -= KeyboardMove;
         Managers.Char.KeyAction += KeyboardMove;
-        
+
         Managers.Char.KeyAction -= KeyboardAnim;
         Managers.Char.KeyAction += KeyboardAnim;
 
@@ -31,13 +34,18 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            animator.Play("RUN");
+            cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 1, 10.0f * Time.deltaTime);
+            animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
+            animator.Play("WAIT_RUN");
         }
         else
         {
-            animator.Play("WAIT");
+            cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 0, 3.0f * Time.deltaTime);
+            animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
+            animator.Play("WAIT_RUN");
         }
     }// -> 이렇게 하나하나 구현하기보다는 KeyboardMove 중일 때 특정애니메이션 실행. 이렇게 묶는게 좋을 듯. 어차피 바꿀거니 W만 만들어서 테스트해보자.
+    // 또 키입력 후, 입력을 멈추면 Idle로 초기화를 시키고 싶은데...
 
     // 실제로 좌표가 이동
     public void KeyboardMove()
@@ -72,5 +80,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
 
 }

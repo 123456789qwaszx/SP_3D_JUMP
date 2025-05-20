@@ -33,12 +33,12 @@ public class CharacterManager
     // 또 그렇게 딕셔너리에 주고 받는 기능을 여기서 작성해서 쓰면 되겠다.
 
 
-    public Player _player;
-    public Player Player
-    {
-        get { return _player; }
-        set { _player = value; }
-    }
+    // public Player _player;
+    // public Player Player
+    // {
+    //     get { return _player; }
+    //     set { _player = value; }
+    // }
 
 
     public Action KeyAction = null;
@@ -46,6 +46,6 @@ public class CharacterManager
     public void OnUpdate()
     {
         if (Input.anyKey && KeyAction != null)
-        KeyAction.Invoke();
+            KeyAction.Invoke();
     }
 }
