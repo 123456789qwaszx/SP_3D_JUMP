@@ -1289,7 +1289,7 @@ PrefabInstance:
       addedObject: {fileID: 2025361988}
     - targetCorrespondingSourceObject: {fileID: 100326, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2025361992}
+      addedObject: {fileID: 2025361993}
   m_SourcePrefab: {fileID: 100100000, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
 --- !u!1 &2025361983 stripped
 GameObject:
@@ -1416,7 +1416,7 @@ CapsuleCollider:
   m_Height: 1.511782
   m_Direction: 1
   m_Center: {x: -0.009083144, y: 0.75038856, z: 0.005497083}
---- !u!114 &2025361992
+--- !u!114 &2025361993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1425,10 +1425,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2025361983}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25859ac37a699554a934ca44d79c33fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 21e781807c376a34283f25e277cdb934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playercontroller: {fileID: 0}
+  _moveSpeed: 5
+  jumpPower: 5
+  _rigidbody: {fileID: 0}
 --- !u!1 &2050242536
 GameObject:
   m_ObjectHideFlags: 0
