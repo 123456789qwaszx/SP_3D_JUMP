@@ -45,7 +45,6 @@ public class CharacterManager
         set { _player = value; }
     }
 
-
     public Action KeyAction = null;
 
     public void OnUpdate()

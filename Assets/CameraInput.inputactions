@@ -1,0 +1,54 @@
+{
+    "name": "CameraInput",
+    "maps": [
+        {
+            "name": "camera",
+            "id": "d5bb7614-a300-440e-ba64-b4c60eacd5dc",
+            "actions": [
+                {
+                    "name": "lookrotation",
+                    "type": "Value",
+                    "id": "33c5136d-79be-4486-b437-d34e4c15f363",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "lookrotation2",
+                    "type": "PassThrough",
+                    "id": "2710362c-1e2e-4301-a199-5bb3f30726a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "840e051f-188e-4c3e-a9eb-012dbc249106",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "lookrotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a87cacdd-6571-45f4-82b7-873d71be9098",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "lookrotation2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -40,6 +40,15 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
+    void LateUpdate()
+    {
+        
+    }
+
+    
+
+    
+
 
     // 좌표이동x 애니메이션만 실행. 아마 벽에 부딪혔을 때에도 실행이 되면 좋을 것 같아.
     public void KeyboardAnim()
