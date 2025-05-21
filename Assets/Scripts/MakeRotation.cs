@@ -29,23 +29,20 @@ public class MakeRotation : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (isAlt)
-            {
+            Vector3 m_dist = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - clickPoint);
+            //좌우, 상화로 움직이는 걸 -> 좌우, 앞뒤 이동으로 변경
 
-                Vector3 m_dist = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - clickPoint);
-                //좌우, 상화로 움직이는 걸 -> 좌우, 앞뒤 이동으로 변경
+            m_dist.z = 0;
+            m_dist.y = 0;
 
-                m_dist.z = 0;
-                m_dist.y = 0;
+            Vector3 toDest = m_dist * (Time.deltaTime * dragSpeed);
 
-                Vector3 toDest = m_dist * (Time.deltaTime * dragSpeed);
+            // y축 고정. 계산하기전에 미리 값을 저장해서, 0을 가지고 있는다. 
+            float y = transform.position.y;
+            
+            transform.Translate(toDest);
+            transform.position = new Vector3(transform.position.x, y, transform.position.z);
 
-                // y축 고정. 계산하기전에 미리 값을 저장해서, 0을 가지고 있는다. 
-                float y = transform.position.y;
-
-                transform.Translate(toDest);
-                transform.position = new Vector3(transform.position.x, y, transform.position.z);
-            }
             transform.LookAt(_looktarget.transform);
         }
         else
