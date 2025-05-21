@@ -60,7 +60,7 @@ public class MakeRotation : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            transform.position = _looktarget.transform.position + new Vector3(0.0f, 3.6f, -3.2f);
+            transform.position = _looktarget.transform.position + new Vector3(0.0f, 4.4f, -3.5f);
         }
         else
         {
