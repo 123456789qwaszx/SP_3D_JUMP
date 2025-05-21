@@ -4,34 +4,31 @@ using UnityEngine;
 
 public class MakeRotation : MonoBehaviour
 {
+    Vector2 leftClickPoint;
+    Vector2 middleClickPoint;
+    Vector3 _delta = new Vector3(0.0f, 3.6f, -3.2f);
+
     [SerializeField]
     GameObject _looktarget;
-    Vector2 clickPoint;
 
-    private Vector3 _delta = new Vector3(0.0f, 3.6f, -3.2f);
-    public float rotateSpeed = 500.0f;
-    public float scrollSpeed = 2000.0f;
-    private float xRotate_dist;
-    private float yRotate_dist;
-
-    float dragSpeed = 30.0f;
-
-    bool isAlt;
+    public float zoomSpeed = 5.0f;
+    public float dragSpeed = 30.0f;
 
     void Start()
     {
-        //_player = Managers.Char.Player;
+        //_looktarget = Managers.Char.Player;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) clickPoint = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        if (Input.GetMouseButtonDown(0)) leftClickPoint = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        if (Input.GetMouseButtonDown(2)) middleClickPoint = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 
         if (Input.GetMouseButton(0))
         {
-            Vector3 m_dist = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - clickPoint);
-            //좌우, 상화로 움직이는 걸 -> 좌우, 앞뒤 이동으로 변경
+            Vector3 m_dist = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - leftClickPoint);
 
+            //m_dist.z = m_dist.y;
             m_dist.z = 0;
             m_dist.y = 0;
 
@@ -39,20 +36,40 @@ public class MakeRotation : MonoBehaviour
 
             // y축 고정. 계산하기전에 미리 값을 저장해서, 0을 가지고 있는다. 
             float y = transform.position.y;
-            
+
             transform.Translate(toDest);
             transform.position = new Vector3(transform.position.x, y, transform.position.z);
 
             transform.LookAt(_looktarget.transform);
         }
+        else if (Input.GetMouseButton(2))
+        {
+            Vector3 m_dist = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - middleClickPoint);
+
+            m_dist.x = 0;
+            m_dist.z = 0;
+
+            Vector3 toDest = m_dist * (Time.deltaTime * dragSpeed);
+
+            float x = transform.position.x;
+            float z = transform.position.z;
+
+            transform.Translate(toDest);
+            transform.position = new Vector3(x, transform.position.y, z);
+
+            transform.LookAt(_looktarget.transform);
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            transform.position = _looktarget.transform.position + _delta;
+        }
         else
         {
-
             float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
+            float distance = transform.position.z - scrollWheel * zoomSpeed;
+            transform.position = new Vector3(transform.position.x, transform.position.y, distance);
 
-            Vector3 camDir = this.transform.localRotation * Vector3.forward;
-
-            this.transform.position += camDir * Time.deltaTime * scrollWheel * scrollSpeed;
+            transform.LookAt(_looktarget.transform);
         }
     }
 }
