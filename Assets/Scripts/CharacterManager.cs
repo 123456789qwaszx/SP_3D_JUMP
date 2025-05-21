@@ -33,8 +33,13 @@ public class CharacterManager
     // 또 그렇게 딕셔너리에 주고 받는 기능을 여기서 작성해서 쓰면 되겠다.
 
 
-    private Player _player;
-    public Player Player
+
+    // 이렇게 하면 이게 실행이 안되서 무의미한 코드
+    // 그렇다고 매니저에서 이걸 시키면 지저분해.
+    // 즉 Player 클래스를 만든 후, 그걸 유니티짱에 붙이고
+    // 그것이 직접 Manager.Char에 접근해서 본인이 직접 여기에 정보를 넣는다.
+    private GameObject _player;
+    public GameObject Player
     {
         get { return _player; }
         set { _player = value; }
