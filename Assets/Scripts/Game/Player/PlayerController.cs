@@ -50,6 +50,10 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
             animator.Play("WAIT_RUN");
         }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            animator.Play("JUMP");
+        }
         else
         {
             cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 0, 3.0f * Time.deltaTime);
@@ -91,7 +95,4 @@ public class PlayerController : MonoBehaviour
             _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }
-
-    
-
 }
