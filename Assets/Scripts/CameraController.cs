@@ -16,14 +16,14 @@ public class CameraController : MonoBehaviour
     {
         _player = Managers.Char.Player;
     }
+    
     void Update()
     {
-        CameraLook();
     }
 
     void LateUpdate()
     {
-        transform.position = _player.transform.position;
+        //transform.position = _player.transform.position;
 
         RaycastHit hit;
         if (Physics.Raycast(_player.transform.position, _delta, out hit, _delta.magnitude, LayerMask.GetMask("Wall")))
@@ -37,52 +37,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    
 
-    public void rotatecamera()
-    {
-        // 마우스
-        camCurXRot += mouseDelta.y * lookSensitvity;
-        camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
-
-        camCurYRot += mouseDelta.x * lookSensitvity;
-        camCurYRot = Mathf.Clamp(camCurYRot, minYLook, maxYLook);
-
-        CameraContainer.transform.localEulerAngles = new Vector3(-camCurXRot, camCurYRot, 0);
-
-        CameraContainer.transform.eulerAngles += new Vector3(mouseDelta.y * lookSensitvity, mouseDelta.x * lookSensitvity, 0);
-
-    }
-
-    public GameObject CameraContainer;
-    public float minXLook;
-    public float maxXLook;
-    private float camCurXRot;
-
-    public float minYLook;
-    public float maxYLook;
-    private float camCurYRot;
-
-    public float lookSensitvity;
-    private Vector2 mouseDelta;
-
-    void CameraLook()
-    {
-        camCurXRot += mouseDelta.y * lookSensitvity;
-        camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
-
-        camCurYRot += mouseDelta.x * lookSensitvity;
-        camCurYRot = Mathf.Clamp(camCurYRot, minYLook, maxYLook);
-
-        CameraContainer.transform.localEulerAngles = new Vector3(-camCurXRot, camCurYRot, 0);
-
-        CameraContainer.transform.eulerAngles += new Vector3(mouseDelta.y * lookSensitvity, mouseDelta.x * lookSensitvity, 0);
-    }
-
-    public void OnLook(InputAction.CallbackContext context)
-    {
-        mouseDelta = context.ReadValue<Vector2>();
-    }
 
 
 
