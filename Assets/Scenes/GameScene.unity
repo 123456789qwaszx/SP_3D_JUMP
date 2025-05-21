@@ -431,6 +431,11 @@ MonoBehaviour:
   _player: {fileID: 2025361983}
   rotateSpeed: 500
   scrollSpeed: 2000
+  xRotateMove: 0
+  yRotateMove: 0
+  isAlt: 0
+  clickPoint: {x: 0, y: 0}
+  dragSpeed: 30
 --- !u!114 &963194232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,7 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e509729d1e7314f44b22e84f725709b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _looktarget: {fileID: 1746462673}
   rotateSpeed: 500
   scrollSpeed: 2000
 --- !u!1 &1529834160
@@ -490,6 +495,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88cd241fc8224a42b8667308255a4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1746462673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1746462674}
+  m_Layer: 0
+  m_Name: looktarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1746462674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746462673}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2025361999}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2025361982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1308,7 +1344,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 400326, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1746462674}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100326, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       insertIndex: -1
@@ -1486,6 +1525,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   _rigidbody: {fileID: 0}
+--- !u!4 &2025361999 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400326, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
+  m_PrefabInstance: {fileID: 2025361982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2050242536
 GameObject:
   m_ObjectHideFlags: 0
