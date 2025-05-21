@@ -6,7 +6,6 @@ public class MakeRotation : MonoBehaviour
 {
     Vector2 leftClickPoint;
     Vector2 middleClickPoint;
-    Vector3 _delta = new Vector3(0.0f, 3.6f, -3.2f);
 
     [SerializeField]
     GameObject _looktarget;
@@ -61,7 +60,7 @@ public class MakeRotation : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            transform.position = _looktarget.transform.position + _delta;
+            transform.position = _looktarget.transform.position + new Vector3(0.0f, 3.6f, -3.2f);
         }
         else
         {
