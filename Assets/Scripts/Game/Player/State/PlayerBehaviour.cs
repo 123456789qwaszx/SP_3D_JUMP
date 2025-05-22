@@ -34,7 +34,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        Managers.Char.Player = gameObject;
         
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
