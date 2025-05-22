@@ -7,7 +7,7 @@ public class UICondition : MonoBehaviour
     public Condition health;
 
     void Start()
-    {
+    {//
         Managers.Char.Player.condition.uiCondition = this;
     }
 }

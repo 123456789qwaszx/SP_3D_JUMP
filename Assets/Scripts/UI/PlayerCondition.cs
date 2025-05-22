@@ -6,7 +6,7 @@ public class PlayerCondition : MonoBehaviour
 {
     public UICondition uiCondition;
 
-    Condition health { get { return uiCondition.health; } }
+    Condition health { get { return uiCondition.health; } }//
 
     void Update()
     {
