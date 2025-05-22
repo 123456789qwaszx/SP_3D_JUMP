@@ -6,7 +6,7 @@ public class PlayerCondition : MonoBehaviour
 {
     public UICondition uiCondition;
 
-    Condition health { get { return uiCondition.health; } }//
+    Condition health { get { return uiCondition.health; } }
 
     void Update()
     {
@@ -21,5 +21,11 @@ public class PlayerCondition : MonoBehaviour
     private void Die()
     {
         Debug.Log("Die...");
+    }
+
+    public void Heal(float amount)
+    {
+        health.Add(amount);
+
     }
 }

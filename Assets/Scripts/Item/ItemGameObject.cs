@@ -8,9 +8,8 @@ public interface IInteractable
     public void OnInteract();
 }
 
-public class ItemObject : MonoBehaviour, IInteractable
+public class ItemGameObject : MonoBehaviour, IInteractable
 {
-
     public ItemData data;
 
     public string GetInteractPrompt()
@@ -21,9 +20,10 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        // CharacterManager.Instance.Player.itemData = data;
-        // CharacterManager.Instance.Player.addItem?.Invoke();
+        Managers.Char.Player.itemData = data;
+        Managers.Char.Player.addItem?.Invoke();
         Destroy(gameObject);
     }
+
 
 }

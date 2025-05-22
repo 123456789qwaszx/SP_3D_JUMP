@@ -56,9 +56,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void OnJump()
     {
-        
+
         _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-        
+
     }
 
 

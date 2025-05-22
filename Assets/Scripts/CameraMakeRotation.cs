@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakeRotation : MonoBehaviour
+public class CameraMakeRotation : MonoBehaviour
 {
     Vector2 leftClickPoint;
     Vector2 middleClickPoint;
@@ -10,6 +10,7 @@ public class MakeRotation : MonoBehaviour
     [SerializeField]
     GameObject _looktarget;
 
+    public Vector3 _delta = new Vector3(0.0f, 4.4f, -3.5f);
     public float zoomSpeed = 5.0f;
     public float dragSpeed = 30.0f;
 
@@ -60,7 +61,8 @@ public class MakeRotation : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            transform.position = _looktarget.transform.position + new Vector3(0.0f, 4.4f, -3.5f);
+            transform.position = _looktarget.transform.position + _delta;
+            transform.LookAt(_looktarget.transform);
         }
         else
         {
