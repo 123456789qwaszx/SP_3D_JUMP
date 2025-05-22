@@ -7,52 +7,57 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    Rigidbody _rigidbody;
+    Animator animator;
+    Camera _camera;
+
     public float _moveSpeed;
     public float jumpPower;
-    public Rigidbody _rigidbody;
-    private Animator animator;
+    public float smoothness = 10f;
 
     private float cur_wait_run_ratio;
 
-    // Called automatically by Unity when the script first exists in the scene.
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-
-    }
-
-    // Called automatically by Unity after Awake whenever the script is enabled. 
-    void OnEnable()
-    {
-        SceneLinkedSMB<PlayerController>.Initialise(animator, this);
-
-    }
 
     void Start()
     {
-        // 이벤트가 두번 호출되는 것 방지
-        Managers.Char.KeyAction -= KeyboardMove;
-        Managers.Char.KeyAction += KeyboardMove;
+        animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _camera = Camera.main;
 
         Managers.Char.KeyAction -= KeyboardAnim;
         Managers.Char.KeyAction += KeyboardAnim;
-
-        _rigidbody = GetComponent<Rigidbody>();
     }
+
+
+    void Update()
+    {
+        InputKeyAction();
+    }
+
 
     void LateUpdate()
     {
-        
+        Vector3 playerRotate = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1));
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerRotate), Time.deltaTime * smoothness);
+
     }
 
-    
 
-    
+
+    void InputKeyAction()
+    {
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        Vector3 moveDirection = forward * Input.GetAxisRaw("Vertical") + right * Input.GetAxisRaw("Horizontal");
+
+        transform.position += moveDirection.normalized * _moveSpeed * Time.deltaTime;
+    }
 
 
     // 좌표이동x 애니메이션만 실행. 아마 벽에 부딪혔을 때에도 실행이 되면 좋을 것 같아.
     public void KeyboardAnim()
     {
+
         if (Input.GetKey(KeyCode.W))
         {
             cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 1, 10.0f * Time.deltaTime);
@@ -70,32 +75,8 @@ public class PlayerController : MonoBehaviour
             animator.Play("WAIT_RUN");
         }
     }// -> 이렇게 하나하나 구현하기보다는 KeyboardMove 중일 때 특정애니메이션 실행. 이렇게 묶는게 좋을 듯. 어차피 바꿀거니 W만 만들어서 테스트해보자.
-    // 또 키입력 후, 입력을 멈추면 Idle로 초기화를 시키고 싶은데...
+     //또 키입력 후, 입력을 멈추면 Idle로 초기화를 시키고 싶은데...
 
-    // 실제로 좌표가 이동
-    public void KeyboardMove()
-    {
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
-            transform.position += Vector3.forward * Time.deltaTime * _moveSpeed;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
-            transform.position += Vector3.back * Time.deltaTime * _moveSpeed;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
-            transform.position += Vector3.left * Time.deltaTime * _moveSpeed;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
-            transform.position += Vector3.right * Time.deltaTime * _moveSpeed;
-        }
-    }
 
     public void OnJump(InputAction.CallbackContext context)
     {
