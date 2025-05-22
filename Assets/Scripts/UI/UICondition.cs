@@ -8,6 +8,6 @@ public class UICondition : MonoBehaviour
 
     void Start()
     {
-        Managers.Char.Player.condition
+        Managers.Char.Player.condition.uiCondition = this;
     }
 }
