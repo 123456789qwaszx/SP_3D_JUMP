@@ -7,12 +7,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody _rigidbody;
+    Rigidbody rigidbody;
     Animator animator;
     Camera _camera;
 
-    public float _moveSpeed;
-    public float jumpPower;
+    public float moveSpeed = 5f;
+    public float jumpPower = 5f;
     public float smoothness = 10f;
 
     private float cur_wait_run_ratio;
@@ -21,17 +21,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
         _camera = Camera.main;
 
-        Managers.Char.KeyAction -= KeyboardAnim;
-        Managers.Char.KeyAction += KeyboardAnim;
+        Managers.Char.KeyActionUpdate -= KeyAction_Anim;
+        Managers.Char.KeyActionUpdate += KeyAction_Anim;
     }
 
 
     void Update()
     {
-        InputKeyAction();
+        Move();
     }
 
 
@@ -43,18 +43,19 @@ public class PlayerController : MonoBehaviour
 
 
 
-    void InputKeyAction()
+    //실제로 좌표 이동
+    void Move()
     {
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
-        Vector3 moveDirection = forward * Input.GetAxisRaw("Vertical") + right * Input.GetAxisRaw("Horizontal");
+        Vector3 w_forward = transform.TransformDirection(Vector3.forward);
+        Vector3 w_right = transform.TransformDirection(Vector3.right);
+        Vector3 moveDir = w_forward * Input.GetAxisRaw("Vertical") + w_right * Input.GetAxisRaw("Horizontal");
 
-        transform.position += moveDirection.normalized * _moveSpeed * Time.deltaTime;
+        transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
     }
 
 
     // 좌표이동x 애니메이션만 실행. 아마 벽에 부딪혔을 때에도 실행이 되면 좋을 것 같아.
-    public void KeyboardAnim()
+    public void KeyAction_Anim()
     {
 
         if (Input.GetKey(KeyCode.W))
@@ -81,7 +82,9 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }
+
+
 }

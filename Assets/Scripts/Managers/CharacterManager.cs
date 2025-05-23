@@ -45,13 +45,16 @@ public class CharacterManager
         set { _player = value; }
     }
 
-    // 이렇게 하면 장점이 여러가지 캐릭터의 KeyAction이 입력될 때, 누가 했는지 단박에 찾을 수 있어.
-    // 캐릭터 하나뿐인데 이렇게 하는 건 낭비! 만들어 뒀으니 두는데, 당장 사용은 안함.250523
-    public Action KeyAction = null;
+    // 이렇게 하면 장점이 여기저기서 KeyAction이 입력될 때, 누가 했는지 단박에 찾을 수 있어.
+    public Action KeyActionStarted = null;
+    public Action KeyActionUpdate = null;
 
     public void OnUpdate()
     {
-        if (Input.anyKey && KeyAction != null)
-            KeyAction.Invoke();
+        if (Input.anyKey && KeyActionUpdate != null)
+            KeyActionUpdate.Invoke();
+
+        if (Input.anyKeyDown && KeyActionStarted != null)
+            KeyActionStarted.Invoke();
     }
 }

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Item_Fish
   m_EditorClassIdentifier: 
   displayName: "\uBB3C\uACE0\uAE30"
-  description: "\uCCB4\uB825\uC744 10 \uCC44\uC6CC\uC90D\uB2C8\uB2E4."
+  description: "\uCCB4\uB825\uC744 30 \uCC44\uC6CC\uC90D\uB2C8\uB2E4."
   type: 0
   icon: {fileID: 21300000, guid: 544a39c67b3b8724c82dfa2e1e2c52a5, type: 3}
   dropPrefab: {fileID: 3828846876288801734, guid: 1c6865324f95c004293d5d1efe86d559, type: 3}
   canStack: 1
   maxStackAmount: 5
-  consumables: []
+  consumables:
+  - type: 0
+    value: 30

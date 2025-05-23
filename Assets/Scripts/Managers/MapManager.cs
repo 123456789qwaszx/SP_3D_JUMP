@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+// Item 생성의 역할도 겸함
 public class MapManager
 {
     // 직접호출 x, player onTrigger로만 호출
@@ -59,7 +60,7 @@ public class MapManager
     //         if (_item.name.Contains("_Item"))
     //             Item.Add(_item);
     //     }
-    
+
     //     Item.SetActive(true);
 
 }
