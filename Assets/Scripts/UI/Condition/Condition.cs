@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 명백하게 꽤 큰 상위의 개념
 public class Condition : MonoBehaviour
 {
     public float curValue;

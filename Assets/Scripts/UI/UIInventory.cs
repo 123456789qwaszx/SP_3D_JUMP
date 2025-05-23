@@ -29,8 +29,6 @@ public class UIInventory : MonoBehaviour
     {
         Managers.Char.KeyActionStarted -= KeyAction_UIInventoryToggle;
         Managers.Char.KeyActionStarted += KeyAction_UIInventoryToggle;
-        Managers.Char.KeyActionStarted -= KeyAction_ToggleCursor;
-        Managers.Char.KeyActionStarted += KeyAction_ToggleCursor;
         Managers.Char.KeyActionStarted -= KeyAction_AddItem;
         Managers.Char.KeyActionStarted += KeyAction_AddItem;
 
@@ -70,8 +68,7 @@ public class UIInventory : MonoBehaviour
     void KeyAction_AddItem()
     {
         ItemData data = Managers.Char.Player.itemData;
-        if (Input.GetKey(KeyCode.E))
-        {
+
             //아이템이 중복 가능 한지 canStack
             if (data.canStack)
             {
@@ -101,7 +98,7 @@ public class UIInventory : MonoBehaviour
             // 없다면
             ThrowItem(data);
             Managers.Char.Player.itemData = null;
-        }
+        
     }
 
     ItemSlot GetItemStack(ItemData data)
@@ -158,6 +155,8 @@ public class UIInventory : MonoBehaviour
                 inventoryWindow.SetActive(true);
             }
         }
+        
+        KeyAction_ToggleCursor();
     }
     public bool IsOpen()
     {

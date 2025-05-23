@@ -53,15 +53,6 @@ public class PlayerBehaviour : MonoBehaviour
         SceneLinkedSMB<PlayerBehaviour>.Initialise(animator, this);
     }
 
-
-    public void OnJump()
-    {
-
-        _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-
-    }
-
-
     // Called each physics step.
     public void CalculateVerticalMovement()
     {

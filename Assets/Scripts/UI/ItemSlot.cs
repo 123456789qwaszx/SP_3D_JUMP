@@ -8,7 +8,6 @@ public class ItemSlot : MonoBehaviour
 {
     public ItemData item;
 
-
     public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;

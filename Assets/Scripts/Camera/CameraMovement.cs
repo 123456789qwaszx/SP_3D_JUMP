@@ -28,13 +28,14 @@ public class CameraMovement : MonoBehaviour
         dirNormalized = realCamera.localPosition.normalized;
         finalDistance = realCamera.localPosition.magnitude;
 
+        // 아마 UI쪽에 옮겨주는게 편할 것 같아.
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
     }
 
     void Update()
     {
+        // 당장은 어차피 캐릭터 회전시 Y축을 잠궈버려서 의미가 없긴하지만, 만약 Alt를 누른상태에서 카메라만 회전시키며 주변을 정찰하는 기능을 추가한다면, 필요할듯.
         rotX += -(Input.GetAxis("Mouse Y")) * sensitivety * Time.deltaTime;
         rotY += Input.GetAxis("Mouse X") * sensitivety * Time.deltaTime;
 
