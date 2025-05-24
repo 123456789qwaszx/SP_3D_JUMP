@@ -25,11 +25,10 @@ public class CameraMovement : MonoBehaviour
             Vector3 dir = GameManager.Instance.MouseDir;
             Vector3 moveDir = new Vector3(dir.x, 0, dir.y);
 
-            transform.position = - moveDir + _target.position + _offset;
+            transform.position = -moveDir + _target.position + _offset;
 
             lastdir = dir;
         }
-
         else
         {
             Vector3 lastdir = GameManager.Instance.MouseDir;

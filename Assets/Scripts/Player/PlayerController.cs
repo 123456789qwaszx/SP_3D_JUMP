@@ -20,6 +20,17 @@ public class PlayerController : MonoBehaviour
 
     private float cur_wait_run_ratio;
 
+
+    public bool p_IsGrounded = true;
+    public bool p_ReadyToJump;
+
+    public float gravity = 20f;
+    protected float VerticalSpeed;
+
+
+    const float StickingGravityProportion = 0.3f;
+    const float JumpAbortSpeed = 10f;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -54,15 +65,42 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
             animator.Play("WAIT_RUN");
         }
-    }
 
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started)
+        if (GameManager.Instance.JumpInput)
         {
-            //rigidbody.AddForce(Vector2.up * _jumpPower, ForceMode.Impulse);
+            if (!GameManager.Instance.JumpInput && _controller.isGrounded)
+                p_ReadyToJump = true;
+
+            if (_controller.isGrounded)
+            {
+                VerticalSpeed = -gravity * StickingGravityProportion;
+
+                VerticalSpeed = _jumpPower;
+                p_IsGrounded = false;
+                p_ReadyToJump = false;
+            }
+            else
+            {
+                // if (!GameManager.Instance.JumpInput && VerticalSpeed > 0.0f)
+                // {
+                //     VerticalSpeed -= JumpAbortSpeed * Time.deltaTime;
+                //     Debug.Log("점프최대도달");
+                //     GameManager.Instance.JumpInput = false;
+                // }
+                // if (Mathf.Approximately(VerticalSpeed, 0f))
+                // {
+                //     VerticalSpeed = 0f;
+                //     Debug.Log("점프최대도달");
+                //     GameManager.Instance.JumpInput = false;
+                // }
+
+                VerticalSpeed -= gravity * Time.deltaTime;
+            }
+
+            _controller.Move(VerticalSpeed * Vector3.up * Time.deltaTime);
+
+            
         }
     }
-
 
 }

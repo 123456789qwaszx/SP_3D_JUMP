@@ -45,6 +45,7 @@ public class CharacterManager
         set { _player = value; }
     }
 
+
     // 이렇게 하면 장점이 여기저기서 KeyAction이 입력될 때, 누가 했는지 단박에 찾을 수 있어.
     public Action KeyActionStarted = null;
     public Action KeyActionUpdate = null;

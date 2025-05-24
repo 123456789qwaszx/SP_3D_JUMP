@@ -10,6 +10,7 @@ public class Mouse_Dragstick : MonoBehaviour
     [SerializeField]
     private GameObject _mousecursor;
 
+
     void Start()
     {
         if (Input.GetMouseButtonDown(0)) _LClickPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -30,6 +31,11 @@ public class Mouse_Dragstick : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             GetMouseUp();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameManager.Instance.JumpInput = true;
         }
     }
 
