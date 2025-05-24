@@ -4,13 +4,5 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+	public Vector2 MouseDir { get; set; } = Vector2.zero;
 }

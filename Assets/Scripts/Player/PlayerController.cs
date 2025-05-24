@@ -10,75 +10,43 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //Rigidbody rigidbody;
     Animator animator;
     CharacterController _controller;
     Camera _camera;
 
     public float _moveSpeed = 5f;
     public float _jumpPower = 5f;
-    public float _rotateSpeed = 10f;
+    public float _rotationSensitivety = 100f;
 
     private float cur_wait_run_ratio;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
-        //rigidbody = GetComponent<Rigidbody>();
-        _controller = GetComponent<CharacterController>(); 
+        _controller = GetComponent<CharacterController>();
+        _camera = Camera.main;
     }
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        //rigidbody = GetComponent<Rigidbody>();
-        _camera = Camera.main;
-
-        Managers.Char.KeyActionUpdate -= KeyAction_Anim;
-        Managers.Char.KeyActionUpdate += KeyAction_Anim;
     }
 
 
     void Update()
     {
-        Move();
-    }
+        Vector3 dir = GameManager.Instance.MouseDir;
+        Vector3 moveDir = new Vector3(dir.x, 0, dir.y);
+        moveDir = (Quaternion.Euler(0, _camera.transform.rotation.y, 0) * moveDir).normalized;
 
-
-    void LateUpdate()
-    {
-        Vector3 playerRotate = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1));
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerRotate), Time.deltaTime * _rotateSpeed);
-    }
-
-
-
-    //실제로 좌표 이동
-    void Move()
-    {
-        Vector3 w_forward = transform.TransformDirection(Vector3.forward);
-        Vector3 w_right = transform.TransformDirection(Vector3.right);
-        Vector3 moveDir = w_forward * Input.GetAxisRaw("Vertical") + w_right * Input.GetAxisRaw("Horizontal");
-
-        _controller.Move(moveDir.normalized * _moveSpeed * Time.deltaTime);
-
-        //transform.position += moveDir.normalized * _moveSpeed * Time.deltaTime;
-    }
-
-
-    // 좌표이동x 애니메이션만 실행. 아마 벽에 부딪혔을 때에도 실행이 되면 좋을 것 같아.
-    public void KeyAction_Anim()
-    {
-
-        if (Input.GetKey(KeyCode.W))
+        if (moveDir != Vector3.zero)
         {
+            _controller.Move(moveDir * Time.deltaTime * _moveSpeed);
+            Quaternion lookRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, Time.deltaTime * _rotationSensitivety);
+
             cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 1, 10.0f * Time.deltaTime);
             animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
             animator.Play("WAIT_RUN");
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            animator.Play("JUMP");
         }
         else
         {
@@ -86,9 +54,7 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
             animator.Play("WAIT_RUN");
         }
-    }// -> 이렇게 하나하나 구현하기보다는 KeyboardMove 중일 때 특정애니메이션 실행. 이렇게 묶는게 좋을 듯. 어차피 바꿀거니 W만 만들어서 테스트해보자.
-     //또 키입력 후, 입력을 멈추면 Idle로 초기화를 시키고 싶은데...
-
+    }
 
     public void OnJump(InputAction.CallbackContext context)
     {
