@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     Camera _camera;
 
     public float _moveSpeed = 5f;
-    public float _jumpPower = 5f;
+    public float _jumpPower = 10f;
     public float _rotationSensitivety = 100f;
 
     private float cur_wait_run_ratio;
@@ -24,10 +24,10 @@ public class PlayerController : MonoBehaviour
     public bool p_IsGrounded = true;
     public bool p_ReadyToJump;
 
-    public float gravity = 10f;
+    public float gravity = 15f;
     protected float VerticalSpeed;
 
-
+// const값은 정확한 계산법을 모르면 조절X gravity와 jumpPower값에만 변화를 줄 것
     const float StickingGravityProportion = 0.3f;
     const float JumpAbortSpeed = 1f;
 
@@ -77,10 +77,12 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
+        // 혹시 2단점프나, 공중에서 점프아이템 먹는 기능을 위해 p_ReadyToJump체크도 추가함.
+        // 실제 체크는 IsGround로만 해도됨.
         if (!GameManager.Instance.JumpInput && _controller.isGrounded)
             p_ReadyToJump = true;
 
-        if (p_IsGrounded)
+        if (p_IsGrounded && p_ReadyToJump)
         {
             VerticalSpeed = -gravity * StickingGravityProportion;
 
@@ -96,14 +98,17 @@ public class PlayerController : MonoBehaviour
             if (!GameManager.Instance.JumpInput && VerticalSpeed > 0.0f)
             {
                 VerticalSpeed -= JumpAbortSpeed * Time.deltaTime;
-                Debug.Log("감속중");
             }
 
+            // 공중에서 최고점을 터치하고, 추락하는 역할도 담당하지만,
+            // 그것보다도 실제적인 중력의 작용을 겸함.
+            // 이동하다 캐릭터가 공중에 조금씩 뜨는걸, ground로 밀어서 _controller.isGrounded를 true 만드는 역할도 등...
             VerticalSpeed -= gravity * Time.deltaTime;
 
             _controller.Move(VerticalSpeed * Vector3.up * Time.deltaTime);
         }
 
+        //다시 점프 뛸 준비
         p_IsGrounded = _controller.isGrounded;
     }
 

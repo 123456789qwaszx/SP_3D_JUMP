@@ -5968,11 +5968,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _jumpPower: 50
+  _jumpPower: 10
   _rotationSensitivety: 100
   p_IsGrounded: 1
   p_ReadyToJump: 0
-  gravity: 20
+  gravity: 15
 --- !u!114 &2025361994
 MonoBehaviour:
   m_ObjectHideFlags: 0
