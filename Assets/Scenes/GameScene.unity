@@ -3105,6 +3105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4c7513f30d05a4b9c2627a0cd29259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  JumpInput: 0
 --- !u!1 &1246033533 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2450610307298001826, guid: be000303d663fc84f9905ac3af3a7b53, type: 3}
@@ -5967,8 +5968,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _jumpPower: 5
+  _jumpPower: 50
   _rotationSensitivety: 100
+  p_IsGrounded: 1
+  p_ReadyToJump: 0
+  gravity: 20
 --- !u!114 &2025361994
 MonoBehaviour:
   m_ObjectHideFlags: 0
