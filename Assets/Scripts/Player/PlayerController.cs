@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = 15f;
     protected float VerticalSpeed;
 
-// const값은 정확한 계산법을 모르면 조절X gravity와 jumpPower값에만 변화를 줄 것
+    // const값은 정확한 계산법을 모르면 조절X gravity와 jumpPower값에만 변화를 줄 것
     const float StickingGravityProportion = 0.3f;
     const float JumpAbortSpeed = 1f;
 
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
         Jump();

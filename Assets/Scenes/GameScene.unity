@@ -5985,9 +5985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f71810574144c4dbb37dce8f7ae7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxForwardSpeed: 8
-  gravity: 20
-  jumpSpeed: 10
   idleAudio: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
