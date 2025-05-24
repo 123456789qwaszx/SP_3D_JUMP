@@ -10,17 +10,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     [Header("Audio")]
     public RandomAudioPlayer idleAudio;
-
     public LayerMask groundLayerMask;
-    public Rigidbody _rigidbody;
+
+    public bool CanAct = true;
 
     private void Awake()
     {
-        
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
-        
-        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
