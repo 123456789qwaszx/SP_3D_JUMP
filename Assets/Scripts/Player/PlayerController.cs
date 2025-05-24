@@ -5,23 +5,33 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CharacterController))]
+
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rigidbody;
+    //Rigidbody rigidbody;
     Animator animator;
+    CharacterController _controller;
     Camera _camera;
 
-    public float moveSpeed = 5f;
-    public float jumpPower = 5f;
-    public float smoothness = 10f;
+    public float _moveSpeed = 5f;
+    public float _jumpPower = 5f;
+    public float _rotateSpeed = 10f;
 
     private float cur_wait_run_ratio;
 
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+        //rigidbody = GetComponent<Rigidbody>();
+        _controller = GetComponent<CharacterController>(); 
+    }
 
     void Start()
     {
         animator = GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody>();
+        //rigidbody = GetComponent<Rigidbody>();
         _camera = Camera.main;
 
         Managers.Char.KeyActionUpdate -= KeyAction_Anim;
@@ -38,7 +48,7 @@ public class PlayerController : MonoBehaviour
     void LateUpdate()
     {
         Vector3 playerRotate = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1));
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerRotate), Time.deltaTime * smoothness);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerRotate), Time.deltaTime * _rotateSpeed);
     }
 
 
@@ -50,7 +60,9 @@ public class PlayerController : MonoBehaviour
         Vector3 w_right = transform.TransformDirection(Vector3.right);
         Vector3 moveDir = w_forward * Input.GetAxisRaw("Vertical") + w_right * Input.GetAxisRaw("Horizontal");
 
-        transform.position += moveDir.normalized * moveSpeed * Time.deltaTime;
+        _controller.Move(moveDir.normalized * _moveSpeed * Time.deltaTime);
+
+        //transform.position += moveDir.normalized * _moveSpeed * Time.deltaTime;
     }
 
 
@@ -82,7 +94,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            //rigidbody.AddForce(Vector2.up * _jumpPower, ForceMode.Impulse);
         }
     }
 
