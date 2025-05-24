@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
         if (p_IsGrounded && p_ReadyToJump)
         {
             VerticalSpeed = -gravity * StickingGravityProportion;
+            animator.Play("JUMP");
 
             if (GameManager.Instance.JumpInput && p_ReadyToJump)
             {
