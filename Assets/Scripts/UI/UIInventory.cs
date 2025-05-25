@@ -29,8 +29,8 @@ public class UIInventory : MonoBehaviour
     {
         Managers.Char.KeyActionStarted -= KeyAction_UIInventoryToggle;
         Managers.Char.KeyActionStarted += KeyAction_UIInventoryToggle;
-        Managers.Char.KeyActionStarted -= KeyAction_AddItem;
-        Managers.Char.KeyActionStarted += KeyAction_AddItem;
+        // Managers.Char.KeyActionStarted -= KeyAction_AddItem;
+        // Managers.Char.KeyActionStarted += KeyAction_AddItem;
 
 
         controller = Managers.Char.Player.controller;
@@ -156,7 +156,7 @@ public class UIInventory : MonoBehaviour
             }
         }
         
-        KeyAction_ToggleCursor();
+        //KeyAction_ToggleCursor();
     }
     public bool IsOpen()
     {
