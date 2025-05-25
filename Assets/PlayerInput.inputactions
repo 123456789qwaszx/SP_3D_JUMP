@@ -15,27 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "568e0010-52c5-4e4a-be8d-1da195893894",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "beda5a76-2385-425b-9977-9ed76b9acab4",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "MiniMap",
-                    "type": "Button",
-                    "id": "f284a736-089f-43f8-bee4-d007bd4a2f42",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -51,18 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Grip",
+                    "name": "Interact2",
                     "type": "Button",
-                    "id": "5a60de7b-4646-462f-bc9a-2c70d9aa679f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Quest",
-                    "type": "Button",
-                    "id": "9deaddd9-61f0-4b97-92a2-d197e182bb2f",
+                    "id": "9ffa69ee-08f3-4fb8-bef6-588b16af7a0d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -83,34 +56,12 @@
                 },
                 {
                     "name": "",
-                    "id": "edd4794c-24bc-418e-bf88-e8ef19609d08",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "cd392944-f200-4c9c-812d-005555f17e72",
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6d11a50f-99f2-4686-b32f-13afa377875a",
-                    "path": "<Keyboard>/m",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MiniMap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -127,23 +78,12 @@
                 },
                 {
                     "name": "",
-                    "id": "78f2e172-3afe-4fa9-b38c-8e724e4c7980",
-                    "path": "<Mouse>/leftButton",
+                    "id": "cbb8dd76-8880-4ff0-a2d9-1fe071771bfe",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grip",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c124993e-3b50-4283-b3d5-99ed8971350d",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Quest",
+                    "action": "Interact2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

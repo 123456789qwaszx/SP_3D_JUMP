@@ -9,30 +9,20 @@ public class Interaction : MonoBehaviour
 {
     public float checkRate = 0.05f;
     private float lastCheckTime;
-    public float maxCheckDistance;
+    public float maxCheckDistance = 5f;
     public LayerMask layerMask;
 
     public GameObject curInteractGameObject;
     private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
-    private Camera camera;
 
-    void Start()
-    {
-        camera = Camera.main;
-    }
 
-    void Update()
+    public void OnInteract(InputAction.CallbackContext context)
     {
-        if (Time.time - lastCheckTime > checkRate)
+        if (context.performed)
         {
-            lastCheckTime = Time.time;
-
-            Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out RaycastHit hit, maxCheckDistance, layerMask))
             {
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
@@ -48,7 +38,6 @@ public class Interaction : MonoBehaviour
                 promptText.gameObject.SetActive(false);
             }
         }
-
     }
 
     private void SetPromptText()
@@ -67,21 +56,4 @@ public class Interaction : MonoBehaviour
             promptText.gameObject.SetActive(false);
         }
     }
-
-
-    // public ItemData data;
-
-
-    // public string GetInteractPrompt()
-    // {
-    //     string str = $"{data.displayName}\n{data.description}";
-    //     return str;
-    // }
-
-    // public void OnInteract()
-    // {
-    //     Managers.Char.Player.itemData = data;
-    //     Managers.Char.Player.addItem?.Invoke();
-    //     Destroy(gameObject);
-    // }
 }

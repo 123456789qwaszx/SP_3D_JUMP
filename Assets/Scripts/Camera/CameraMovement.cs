@@ -6,8 +6,6 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
     private Transform _target;
-    [SerializeField]
-    private float dragSpeed = 20;
 
     private Vector3 _offset;
 
