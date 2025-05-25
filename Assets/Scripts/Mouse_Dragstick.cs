@@ -10,10 +10,16 @@ public class Mouse_Dragstick : MonoBehaviour
     [SerializeField]
     private GameObject _mousecursor;
 
+    [SerializeField]
+    private GameObject _mouseBackground;
+
+    private float _radius;
+
 
     void Start()
     {
         if (Input.GetMouseButtonDown(0)) _LClickPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        _radius = _mouseBackground.GetComponent<RectTransform>().sizeDelta.y / 3;
     }
 
     void Update()
@@ -36,7 +42,7 @@ public class Mouse_Dragstick : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             GameManager.Instance.JumpInput = true;
-            
+
         }
         if (Input.GetMouseButtonUp(1))
         {
@@ -62,16 +68,16 @@ public class Mouse_Dragstick : MonoBehaviour
 
     public void GetMouseDown()
     {
-        _mousecursor.transform.position = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition);
-        _LClickPos = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition);
-
+        _mouseBackground.transform.position = Input.mousePosition;
+        _mousecursor.transform.position = Input.mousePosition;
+        _LClickPos = (Vector2)Input.mousePosition;
     }
 
     public void GetMouseDrag()
     {
-        Vector2 clickDir = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - _LClickPos);
+        Vector2 clickDir = (Vector2)Input.mousePosition - _LClickPos;
 
-        float moveDist = clickDir.magnitude;
+        float moveDist = Mathf.Min(clickDir.magnitude, _radius);
         Vector2 moveDir = clickDir.normalized;
 
         Vector2 newPosition = _LClickPos + moveDir * moveDist;

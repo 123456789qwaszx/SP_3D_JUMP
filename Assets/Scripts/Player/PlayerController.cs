@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     protected float _verticalSpeed;
 
     // const값은 정확한 계산법을 모르면 조절X gravity와 jumpPower값에만 변화를 줄 것
+    // 각 _verticalSpeed에 따른 애니메이션 재생에 영향을 끼침. 
     const float StickingGravityProportion = 0.3f;
     const float JumpAbortSpeed = 1f;
 
@@ -59,27 +60,31 @@ public class PlayerController : MonoBehaviour
             _animator.SetFloat(p_HashAirborneVerticalSpeed, (_verticalSpeed + 4.5f) * 0.1f);
     }
 
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnTriggerEnter(Collider other)
     {
-        if (hit.gameObject.CompareTag("JumpPad"))
+        if (other.gameObject.CompareTag("JumpPad"))
         {
             StartCoroutine("JumpPadCoroutine");
-            hit.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
         }
     }
-
+    
 
     protected IEnumerator JumpPadCoroutine()
     {
-        float _defaultJumpPower = _jumpPower;
-        _jumpPower += 20;
         GameManager.Instance.JumpInput = true;
-        Jump();
 
-        yield return new WaitForSeconds(0.5f);
+        _jumpPower += 10;
+        Jump();
+        // 공중에서 하나 더 먹었을 대, p_ReadyToJump 반응여부 체크.
+        // Jump뿐만 아닌, 점수나 Hp등등 다양한 것 Onoff 반응 체크가능.
+        p_ReadyToJump = true;
+
+        yield return new WaitForSeconds(1f);
         GameManager.Instance.JumpInput = false;
-        _jumpPower = _defaultJumpPower;
+        // 공중에서 하나 더 먹었을 대, p_ReadyToJump 반응여부 체크.
+        // Jump뿐만 아닌, 점수나 Hp등등 다양한 것 Onoff 반응 체크가능.
+        _jumpPower -= 10;
     }
 
 

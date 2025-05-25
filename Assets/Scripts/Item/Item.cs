@@ -8,7 +8,4 @@ public class Item : MonoBehaviour
     private ItemData m_SharedData;
 
     private bool CanExist;
-
-    
-
 }

@@ -69,19 +69,19 @@ public class Interaction : MonoBehaviour
     }
 
 
-    public ItemData data;
+    // public ItemData data;
 
 
-    public string GetInteractPrompt()
-    {
-        string str = $"{data.displayName}\n{data.description}";
-        return str;
-    }
+    // public string GetInteractPrompt()
+    // {
+    //     string str = $"{data.displayName}\n{data.description}";
+    //     return str;
+    // }
 
-    public void OnInteract()
-    {
-        Managers.Char.Player.itemData = data;
-        Managers.Char.Player.addItem?.Invoke();
-        Destroy(gameObject);
-    }
+    // public void OnInteract()
+    // {
+    //     Managers.Char.Player.itemData = data;
+    //     Managers.Char.Player.addItem?.Invoke();
+    //     Destroy(gameObject);
+    // }
 }
