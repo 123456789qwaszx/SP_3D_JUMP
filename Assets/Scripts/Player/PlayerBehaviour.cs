@@ -12,7 +12,6 @@ public class PlayerBehaviour : MonoBehaviour
     public RandomAudioPlayer idleAudio;
     public LayerMask groundLayerMask;
 
-    public bool CanAct = true;
 
     private void Awake()
     {

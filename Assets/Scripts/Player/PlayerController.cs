@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool p_IsGrounded = true;
     public bool p_ReadyToJump;
 
-    public float _gravity = 15f;
+    public float _gravity = 20f;
     protected float _verticalSpeed;
 
     // const값은 정확한 계산법을 모르면 조절X gravity와 jumpPower값에만 변화를 줄 것
@@ -56,7 +56,30 @@ public class PlayerController : MonoBehaviour
         Jump();
 
         if (!p_IsGrounded)
-            _animator.SetFloat(p_HashAirborneVerticalSpeed, _verticalSpeed * 0.08f);
+            _animator.SetFloat(p_HashAirborneVerticalSpeed, (_verticalSpeed + 4.5f) * 0.1f);
+    }
+
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("JumpPad"))
+        {
+            StartCoroutine("JumpPadCoroutine");
+            hit.gameObject.SetActive(false);
+        }
+    }
+
+
+    protected IEnumerator JumpPadCoroutine()
+    {
+        float _defaultJumpPower = _jumpPower;
+        _jumpPower += 20;
+        GameManager.Instance.JumpInput = true;
+        Jump();
+
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.JumpInput = false;
+        _jumpPower = _defaultJumpPower;
     }
 
 
@@ -72,15 +95,15 @@ public class PlayerController : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, Time.deltaTime * _rotationSensitivety);
 
-        //     cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 1, 10.0f * Time.deltaTime);
-        //     _animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
-        //     _animator.Play("WAIT_RUN");
-        // }
-        // else
-        // {
-        //     cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 0, 3.0f * Time.deltaTime);
-        //     _animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
-        //     _animator.Play("WAIT_RUN");
+            cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 1, 10.0f * Time.deltaTime);
+            _animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
+            _animator.Play("WAIT_RUN");
+        }
+        else
+        {
+            cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 0, 3.0f * Time.deltaTime);
+            _animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
+            _animator.Play("WAIT_RUN");
         }
     }
 
@@ -95,13 +118,14 @@ public class PlayerController : MonoBehaviour
         if (p_IsGrounded && p_ReadyToJump)
         {
             _verticalSpeed = -_gravity * StickingGravityProportion;
-            _animator.Play("Jump_Blended");
 
             if (GameManager.Instance.JumpInput && p_ReadyToJump)
             {
                 _verticalSpeed = _jumpPower;
                 p_IsGrounded = false;
                 p_ReadyToJump = false;
+
+                //_animator.Play("JUMP_2STRETCH");
             }
         }
         else
@@ -109,12 +133,16 @@ public class PlayerController : MonoBehaviour
             if (!GameManager.Instance.JumpInput && _verticalSpeed > 0.0f)
             {
                 _verticalSpeed -= JumpAbortSpeed * Time.deltaTime;
-            }
 
-            // 공중에서 최고점을 터치하고, 추락하는 역할도 담당하지만,
-            // 그것보다도 실제적인 중력의 작용을 겸함.
-            // 이동하다 캐릭터가 공중에 조금씩 뜨는걸, ground로 밀어서 _controller.isGrounded를 true 만드는 역할도 등...
+                //_animator.Play("JUMP_3OVERRAPPING");
+            }
+            if (Mathf.Approximately(_verticalSpeed, 0f))
+            {
+                _verticalSpeed = 0f;
+            }
             _verticalSpeed -= _gravity * Time.deltaTime;
+            //_animator.Play("JUMP_4FOLLOWTHROUGH");
+
 
             _controller.Move(_verticalSpeed * Vector3.up * Time.deltaTime);
         }
