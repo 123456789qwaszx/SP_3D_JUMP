@@ -67,6 +67,20 @@ public class PlayerController : MonoBehaviour
             StartCoroutine("JumpPadCoroutine");
             other.gameObject.SetActive(false);
         }
+
+        if (other.gameObject.CompareTag("MovingGround"))
+        {
+            this.transform.SetParent(other.transform);
+        }
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("MovingGround"))
+        {
+            other.transform.SetParent(null);
+        }
     }
     
 
