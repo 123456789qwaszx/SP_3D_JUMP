@@ -24,8 +24,7 @@ public class PlayerController : MonoBehaviour
     public float _gravity = 20f;
     protected float _verticalSpeed;
 
-    // const값은 정확한 계산법을 모르면 조절X gravity와 jumpPower값에만 변화를 줄 것
-    // 각 _verticalSpeed에 따른 애니메이션 재생에 영향을 끼침. 
+
     const float StickingGravityProportion = 0.3f;
     const float JumpAbortSpeed = 1f;
 
@@ -40,11 +39,6 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _controller = GetComponent<CharacterController>();
         _camera = Camera.main;
-    }
-
-    void OEnable()
-    {
-        SceneLinkedSMB<PlayerController>.Initialise(_animator, this);
     }
 
 

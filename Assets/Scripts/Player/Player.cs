@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     public PlayerController controller;
     public PlayerCondition condition;
-    public PlayerBehaviour behaviour;
 
     public ItemData itemData;
     public Action addItem;
@@ -17,8 +16,6 @@ public class Player : MonoBehaviour
         Managers.Char.Player = this;
         controller = GetComponent<PlayerController>();
         condition = GetComponent<PlayerCondition>();
-        behaviour = GetComponent<PlayerBehaviour>();
-             
     }
 
     void Update()
