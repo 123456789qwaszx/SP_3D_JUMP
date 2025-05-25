@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
         if (!p_IsGrounded)
             _animator.SetFloat(p_HashAirborneVerticalSpeed, (_verticalSpeed + 4.5f) * 0.1f);
     }
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -68,7 +69,6 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
         }
     }
-    
 
     protected IEnumerator JumpPadCoroutine()
     {
@@ -96,16 +96,19 @@ public class PlayerController : MonoBehaviour
 
         if (moveDir != Vector3.zero)
         {
+            // 좌표 이동
             _controller.Move(moveDir * Time.deltaTime * _moveSpeed);
             Quaternion lookRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, Time.deltaTime * _rotationSensitivety);
 
+            // 애니메이션 재생
             cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 1, 10.0f * Time.deltaTime);
             _animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
             _animator.Play("WAIT_RUN");
         }
         else
         {
+            // 애니메이션 재생
             cur_wait_run_ratio = Mathf.Lerp(cur_wait_run_ratio, 0, 3.0f * Time.deltaTime);
             _animator.SetFloat("wait_run_ratio", cur_wait_run_ratio);
             _animator.Play("WAIT_RUN");
