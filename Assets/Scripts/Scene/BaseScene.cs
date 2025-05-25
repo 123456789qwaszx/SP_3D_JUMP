@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class BaseScene : MonoBehaviour
+public class BaseScene : MonoBehaviour
 {
 	void Awake()
 	{
 		Init();
 	}
 
-	protected virtual void Init()
+    void Update()
+    {
+        
+    }
+
+	protected void Init()
     {
         Object obj = GameObject.FindObjectOfType(typeof(EventSystem));
         if (obj == null)
-        Managers.Resource.Instantiate("EventSystem").name = "@EventSystem";
+        Resources.Load<EventSystem>("Prefabs").name = "@EventSystem";
     }
-
-    public abstract void Clear();
 }
